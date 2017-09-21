@@ -1,0 +1,85 @@
+{"pipelines":[{
+  "spec": {
+    "name": "create_standard_views",
+    "description": "",
+    "inputs": [
+      {
+        "name": "filt"
+      },
+      {
+        "name": "pre"
+      },
+      {
+        "name": "firings"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "view_out"
+      }
+    ],
+    "parameters": []
+  },
+  "steps": [
+    {
+      "step_type": "processor",
+      "processor_name": "mountainsort.compute_templates",
+      "inputs": {
+        "timeseries": "filt",
+        "firings": "firings"
+      },
+      "outputs": {
+        "templates_out": "templates"
+      },
+      "parameters": {
+        "clip_size": "200"
+      }
+    },
+    {
+      "step_type": "processor",
+      "processor_name": "banjoview.cross_correlograms",
+      "inputs": {
+        "firings": "firings"
+      },
+      "outputs": {
+        "correlograms_out": "autocorrelograms"
+      },
+      "parameters": {
+        "samplerate": "30000",
+        "max_dt_msec": "100",
+        "bin_size_msec": "2"
+      }
+    },
+    {
+      "step_type": "json_output",
+      "inputs": {
+        "templates": "templates",
+        "autocorrelograms": "autocorrelograms"
+      },
+      "outputs": {
+        "output": "view_out"
+      },
+      "parameters": {},
+      "content": {
+        "view_type": "banjoview",
+        "processing_server": "${processing_server}",
+        "views": [
+          {
+            "view_type": "templates",
+            "container": "north",
+            "templates": "${templates}",
+            "label": "Templates"
+          },
+          {
+            "view_type": "correlograms",
+            "container": "south",
+            "correlograms": "${autocorrelograms}",
+            "label": "Autocorrelograms"
+          }
+        ]
+      }
+    }
+  ],
+  "input_files": [],
+  "output_files": []
+}]}
