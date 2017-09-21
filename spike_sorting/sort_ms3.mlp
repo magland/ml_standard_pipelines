@@ -1,5 +1,5 @@
 {
-  pipelines:[
+  "pipelines":[
     {
       "spec": {
         "name": "spike_sorting",
