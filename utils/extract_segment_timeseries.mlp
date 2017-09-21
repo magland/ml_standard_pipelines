@@ -1,0 +1,47 @@
+{
+  "spec": {
+    "name": "extract_segment_timeseries",
+    "description": "",
+    "inputs": [
+      {
+        "name": "timeseries"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "timeseries_out"
+      }
+    ],
+    "parameters": [
+      {
+        "name": "t1"
+      },
+      {
+        "name": "t2"
+      },
+      {
+        "name": "channels",
+        "optional": true
+      }
+    ]
+  },
+  "steps": [
+    {
+      "step_type": "processor",
+      "processor_name": "mountainsort.extract_segment_timeseries",
+      "inputs": {
+        "timeseries": "timeseries"
+      },
+      "outputs": {
+        "timeseries_out": "timeseries_out"
+      },
+      "parameters": {
+        "t1": "${t1}",
+        "t2": "${t2}",
+        "channels": "${channels}"
+      }
+    }
+  ],
+  "input_files": [],
+  "output_files": []
+}
