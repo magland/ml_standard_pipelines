@@ -2,7 +2,7 @@
   "pipelines":[
     {
       "spec": {
-        "name": "spike_sorting",
+        "name": "sort_ms3_v1",
         "description": "",
         "inputs": [
           {
